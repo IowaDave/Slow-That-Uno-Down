@@ -7,11 +7,11 @@ Modify the Baud Rate Generator to enable Serial communications at the slower clo
 
 That takes another two code instructions
 
-A total of seven code instructions achieves both of those desirable results. This article takes a Food-First-Then-Recipe approach. It:
+A total of seven code instructions achieves both of those desirable results. This article will:
 
-* demonstrates the instructions, 
-* locates and explains the documentation for them, 
-* concludes with discussion of advantages and disadvantages for slower System Clock speeds.
+* demonstrate the instructions, 
+* locate and explain the documentation for them, and 
+* conclude with discussion of advantages and disadvantages for slower System Clock speeds.
 
 NOTE TO BEGINNERS: 
 

@@ -227,6 +227,6 @@ Another possible disadvantage could show up as perceptibly slower execution of l
 
 1 MHz may sound ancient and slow compared to specs for snazzy new processors coming out in the mid-2020s. Yet, a '328 executes nearly one million machine instructions per second at that speed. 
 
-Consider that the entire flash memory of a '328 can hold at most about 16,000 instructions, plenty for most purposes. Running at 1 MHz a '328 could race through every instruction it could possibly contain 62 times in a second. Even you, Dear Reader, cannot blink that fast.
+Consider that the entire flash memory of a '328 can hold about 16,000 instructions, plenty for many purposes. A '328 running at 1 MHz could race through every instruction it contains more than 62 times in a second. Even you, Dear Reader, cannot blink that fast.
 
 1 MHz could be abundant speed for many purposes. It might be worth a try.

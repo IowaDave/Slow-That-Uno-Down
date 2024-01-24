@@ -85,9 +85,9 @@ Arduino IDE by default configures CLKPR to "divide by 1", meaning the 16 MHz inc
 
 ```CLKPR = 0b0100;``` changes this to "divide by 16". The incoming 16 MHz signal from the crystal is reduced to a 1 MHz signal going out.
 
-The whole system switches to the new clock speed. This includes the "General I/O Modules", which means it affects the Serial communications modules such as SPI, TWI (I2C) and USART (the ```Serial.print()``` component.)
+The CPU begins to execute instructions at a 1 MHz rate. In fact, the whole system switches to the new clock speed. This includes the "General I/O Modules", which means it affects the Serial communications modules such as SPI, TWI (I2C) and USART (the ```Serial.print()``` component.)
 
-We need to make one more change if we want Serial communications.
+We will need to make changes in those modules also, if we want Serial communications.
 
 ## The Baud Rate Generator
 The following instructions will enable a '328 running at 1 MHz to use the ```Serial``` communications resource as implemented by the Arduino IDE.

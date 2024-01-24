@@ -137,7 +137,7 @@ The '328 burns nearly 10 milliAmps of current at 16 MHz. A program can reduce th
 
 The following two, familiar-looking "Blinky" programs will perform almost the same, but one of them uses much less current.
 
-### Try it!
+### Try it! Both of the following listings are available in the examples folder.
 
 #### Program #1, runs at 16 MHz 
 
@@ -196,17 +196,21 @@ By contrast, Program #2 reduces the draw to around 38 mA.
 
 Reducing clock speed is the easiest trick we have for conserving power with an Arduino Uno. But is the difference between 38 and 46 really significant?
 
-Yes, very much so, when you take the '328 off the Arduino and mount it by itself in a circuit, the way it was designed to be used. Then the comparison is of 1 mA to 9 mA. 
+Yes, it's a 20% savings. It becomes much more significant when you take the '328 off the Arduino and mount it by itself in a circuit, the way it was designed to be used. Then the comparison is of 1 mA to 9 mA. 
 
 Figures 31-332 and 31-333 on pages 501 and 502 of the datasheet display the power usage at 5 volts for 1 MHz and 16 MHZ, respectively.
 
 Put the difference into perspective in terms of battery life. Suppose a battery of 5 volts, more or less, having useful capacity of 2,000 mAH. 
 
-The Arduino running at 16 MHz would deplete the battery in less than 2 days.
+The Arduino running in active mode continuously at 16 MHz would deplete the battery in less than 2 days.
 
-Take the '328 off the Arduino and run it at 1 MHz. Now the battery could last 83 days.
+Take the '328 off the Arduino and slow it down to 1 MHz. Now the battery could last 83 days.
 
-Slowing the System Clock is an easy way to address a difficult problem: how to run an "Arduino" project for a long time on batteries.
+Slowing the System Clock is an easy first step toward running an "Arduino" project for a long time on batteries. It definitely deserves consideration when the program:
+
+* must run continuously, 
+* can carry out its actions in just a few thousand instructions or less, and
+* is likely to spend most of its time waiting to respond to the next event or sensor reading.
 
 ## Disadvantages
 

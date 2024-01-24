@@ -84,7 +84,7 @@ The whole system switches to the new clock speed. This includes the "General I/O
 
 We need to make one more change if we want Serial communications.
 
-## The BAUD Rate Generator
+## The Baud Rate Generator
 The following instructions will enable a '328 running at 1 MHz to use the ```Serial``` communications resource as implemented by the Arduino IDE.
 
 ```
@@ -95,11 +95,11 @@ The following instructions will enable a '328 running at 1 MHz to use the ```Ser
 
 UBRR0H and UBRR0L are registers belonging to the Universal Synchronous and Asynchronous serial Receiver and Transmitter built into the ATmega328P. That is, the USART.
 
-First the code initializes the USART in the usual way. 9600 BAUD happens to be the fastest reliable data transmission speed when running the processor at 1 MHz. 
+First the code initializes the USART in the usual way. 9600 Baud happens to be the fastest reliable data transmission speed when running the processor at 1 MHz. 
 
 Data transmission speed is obtained by counting cycles of the System Clock. A slower System Clock obliges the USART to count fewer cycles for any given transmission speed. 
 
-The USART BAUD Rate Registers, UBRR0H and UBRR0L, contain the number of cycles to count. "12" happens to be the right number for 9600 BAUD at 1 MHz. 
+The USART Baud Rate Registers, UBRR0H and UBRR0L, contain the number of cycles to count. "12" happens to be the right number for 9600 Baud at 1 MHz. 
 
 #### Where is the documentation for this?
 Section 20, "USART0" on pages 179 - 204 of the datasheet explains everything in detail. I will point out the relevant parts of it for this example.
@@ -108,7 +108,7 @@ Start on page 204. The number of cycles to count is a 12-bit value that can rang
 
 Where did "12" come from?
 
-Visit page 196. Exhibit 2 shows a portion of Table 20-4. "12" was chosen because it corresponds to 9600 BAUD at 1 MHz when the "U2X" bit is set to 1. We look in that column because the Arduino instruction, ```Serial.begin()```, sets the U2X bit to 1.
+Visit page 196. Exhibit 2 shows a portion of Table 20-4. "12" was chosen because it corresponds to 9600 Baud at 1 MHz when the "U2X" bit is set to 1. We look in that column because the Arduino instruction, ```Serial.begin()```, sets the U2X bit to 1.
 
 ![Excerpt of Baud rate table](images/UBRR.png)<br>
 **Exhibit 2** Excerpt from datasheet table 20-4

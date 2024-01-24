@@ -213,7 +213,7 @@ The table below lists what I believe are maximum useful speeds for the three Ser
 
 
 | Module | Max Speed | Remarks |
-| === | === | === |
+| ------ | --------- | ------- |
 | USART | 9600 Baud | Table 20-4 |
 | TWI | 62.5 KHz | Calculated and measured |
 | SPI | 250 KHz | Calculated (1) |

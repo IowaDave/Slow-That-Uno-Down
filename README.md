@@ -104,11 +104,11 @@ First the code initializes the USART in the usual way. 9600 Baud happens to be t
 
 Data transmission speed is obtained by counting cycles of the System Clock. 
 
-When Arduino IDE initializes USART, it assumes a 16 MHz System Clock for calculating numbers of clock cycles. 
+When Arduino IDE initializes USART, it assumes a 16 MHz System Clock for calculating numbers of clock cycles to be counted. 
 
 The number is stored in the two UBRR0 registers.
 
-A slower System Clock reduces the number of cycles to count for any given transmission speed. We need to store a different, correct number in UBRR0. "12" happens to be the right number for 9600 Baud at 1 MHz. 
+A slower System Clock decreases the number of cycles to count for any given transmission speed. We need to store a different, correct number in UBRR0. "12" happens to be the right number for 9600 Baud at 1 MHz. 
 
 #### Where is the documentation for this?
 Section 20, "USART0" on pages 179 - 204 of the datasheet explains everything in detail. I will point out the relevant parts of it for this example.
@@ -139,7 +139,8 @@ The '328 burns nearly 10 milliAmps of current at 16 MHz. A program can reduce th
 
 The following two, familiar-looking "Blinky" programs will perform almost the same, but one of them uses much less current.
 
-### Try it! Both of the following listings are available as Arduino IDE projects in the examples folder.
+### Try it! 
+Both of the following listings are available as Arduino IDE projects in the examples folder.
 
 #### Program #1, runs at 16 MHz 
 

@@ -1,13 +1,13 @@
 # Slow That Uno Down!
 Use the System Clock Prescaler to reduce power consumption of an Arduino Uno or Nano by slowing the speed of its ATmega328P microcontroller.
 
-It takes only two code instructions.
+It takes only five code instructions.
 
 Modify the Baud Rate Generator to enable Serial communications at the slower clock speed.
 
 That takes another two code instructions
 
-A total of four code instructions achieves both of those desirable results. This article takes a Food-First-Then-Recipe approach. It:
+A total of seven code instructions achieves both of those desirable results. This article takes a Food-First-Then-Recipe approach. It:
 
 * demonstrates the instructions, 
 * locates and explains the documentation for them, 

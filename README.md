@@ -11,11 +11,13 @@ A total of seven code instructions achieves both of those desirable results. Thi
 
 * demonstrates the instructions, 
 * locates and explains the documentation for them, 
-* concludes with discussion of advantages and disadvantages for slower system clock speeds.
+* concludes with discussion of advantages and disadvantages for slower System Clock speeds.
 
 NOTE TO BEGINNERS: 
 
->The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the microcontroller's memory.
+>The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the memory of the ATmega328P microcontroller.
+
+>By the way, this article will abbreviate ATmega328P as '328.
 
 >Each register occupies one byte of memory, meaning it holds eight bits. Each bit is like a switch that turns things on and off inside the microcontroller. 
 
@@ -27,7 +29,7 @@ NOTE TO BEGINNERS:
 
 >It means your code can change how the Arduino works, just by assigning a value to a register.
 
->Direct access to the registers unlocks many hidden, bonus capabilities of the Arduino. 
+>Direct access to the registers unlocks many hidden, bonus capabilities of the '328 and the Arduino that mounts it. 
 
 ## The Clock Prescaler Register, CLKPR
 
@@ -70,6 +72,8 @@ Exhibit 1 marks up a table borrowed from page 36 of the datasheet. The orange li
 ![ATmega328P Clock Diagram](images/SlowDown_Prescaler.png)<br>
 **Exhibit 1** The ATmega328P Clock schematic
 
+Read the schematic diagram from the bottom up. 
+
 First, the Crystal Oscillator is selected as the Source Clock. This feeds a 16 MHz signal into the System Clock Prescaler. The CLKPR register controls what happens inside the Prescaler.
 
 Arduino IDE by default configures CLKPR to "divide by 1", meaning the 16 MHz incoming signal passes through unchanged into the Clock Control Unit, thence the rest of the system.
@@ -78,10 +82,10 @@ Arduino IDE by default configures CLKPR to "divide by 1", meaning the 16 MHz inc
 
 The whole system switches to the new clock speed. This includes the "General I/O Modules", which means it affects the Serial communications modules such as SPI, TWI (I2C) and USART (the ```Serial.print()``` component.)
 
-We need to make one more change.
+We need to make one more change if we want Serial communications.
 
 ## The BAUD Rate Generator
-The following instructions will enable an ATmega328P running at 1 MHz to use the ```Serial``` communications resource as implemented by the Arduino IDE.
+The following instructions will enable a '328 running at 1 MHz to use the ```Serial``` communications resource as implemented by the Arduino IDE.
 
 ```
   Serial.begin(9600);
@@ -195,15 +199,15 @@ The Arduino running at 16 MHz would deplete the battery in less than 2 days.
 
 Take the '328 off the Arduino and run it at 1 MHz. Now the battery could last 83 days.
 
-Slowing the System Clock is an easy trick that addresses a difficult problem: how to run an "Arduino" project for a long time on batteries.
+Slowing the System Clock is an easy way to address a difficult problem: how to run an "Arduino" project for a long time on batteries.
 
 ## Disadvantages
 
 The Serial modules, SPI, TWI (I2C) and USART, communicate by sending and receiving pulses at timed intervals. The intervals are determined with reference to the System Clock. 
 
-Holding all else equal, a slower system clock speed may constrain the speed of data transmission with all three of these modules.
+Holding all else equal, a slower System Clock speed may constrain the speed of data transmission with all three of these modules.
 
-The table below lists the maximum useful speeds for the three Serial modules when the System Clock speed is 1 MHz. The value given for TWI was calculated from the datasheet then verified with an oscilloscope.
+The table below lists what I believe are maximum useful speeds for the three Serial modules when the System Clock speed is 1 MHz. The value given for TWI was calculated per the datasheet then verified with an oscilloscope.
 
 | Module | Max Speed | Remarks |
 | === | === | === |
@@ -211,7 +215,7 @@ The table below lists the maximum useful speeds for the three Serial modules whe
 | TWI | 62.5 KHz | Calculated and measured |
 | SPI | 250 KHz | Calculated (1) |
 
-(1) The datasheet states that SPI is not assured of working in a clock-receiver role if the speed exceeds 1/4th of the System Clock speed.
+(1) The datasheet states that SPI is not assured of working well in a "clock-receiving client" role if the speed exceeds 1/4th the frequency of the System Clock.
 
 Only you can decide whether one of those speeds can satisfy requirements for your project.
 

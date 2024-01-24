@@ -193,7 +193,7 @@ Yes, very much so, when you take the '328 off the Arduino and mount it by itself
 
 Don't take my word for it. Consult the datasheet, available from Microchip, the '328's manufacturer, [here](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf).
 
-Study Figures 31-332 and 31-333 on pages 501 and 502. The graphs display the power usage at 5 volts for 1 MHz and 10 MHZ, respectively.
+Study Figures 31-332 and 31-333 on pages 501 and 502. The graphs display the power usage at 5 volts for 1 MHz and 16 MHZ, respectively.
 
 Put the difference into perspective in terms of battery life. Suppose a battery of 5 volts, more or less, having useful capacity of 2,000 mAH. 
 

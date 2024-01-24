@@ -97,14 +97,16 @@ UBRR0H and UBRR0L are registers belonging to the Universal Synchronous and Async
 
 First the code initializes the USART in the usual way. 9600 Baud happens to be the fastest reliable data transmission speed when running the processor at 1 MHz. 
 
-Data transmission speed is obtained by counting cycles of the System Clock. A slower System Clock obliges the USART to count fewer cycles for any given transmission speed. 
+Data transmission speed is obtained by counting cycles of the System Clock. 
+
+When Arduino IDE initializes USART, it assumes a 16 MHz System Clock when calculating numbers of clock cycles. A slower System Clock reduces the number of cycles to count for any given transmission speed. 
 
 The USART Baud Rate Registers, UBRR0H and UBRR0L, contain the number of cycles to count. "12" happens to be the right number for 9600 Baud at 1 MHz. 
 
 #### Where is the documentation for this?
 Section 20, "USART0" on pages 179 - 204 of the datasheet explains everything in detail. I will point out the relevant parts of it for this example.
 
-Start on page 204. The number of cycles to count is a 12-bit value that can range from 0 up to 4095, that is, from 0x000 through 0xfff. UBRR0H stores the upper four bits, zero in this case. UBRR0L stores the lower 8 bits, 0x0c = 12, in this example.
+Start on page 204. The number of cycles to count is a 12-bit value that can range from 0 up to 4095, that is, from 0x000 through 0xfff. UBRR0H stores the upper four bits, which will be zero because 12 is less than 256. UBRR0L stores the value 12, in this example.
 
 Where did "12" come from?
 
@@ -209,11 +211,13 @@ Holding all else equal, a slower System Clock speed may constrain the speed of d
 
 The table below lists what I believe are maximum useful speeds for the three Serial modules when the System Clock speed is 1 MHz. The value given for TWI was calculated per the datasheet then verified with an oscilloscope.
 
+
 | Module | Max Speed | Remarks |
 | === | === | === |
 | USART | 9600 Baud | Table 20-4 |
 | TWI | 62.5 KHz | Calculated and measured |
 | SPI | 250 KHz | Calculated (1) |
+
 
 (1) The datasheet states that SPI is not assured of working well in a "clock-receiving client" role if the speed exceeds 1/4th the frequency of the System Clock.
 

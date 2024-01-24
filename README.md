@@ -36,13 +36,13 @@ NOTE TO BEGINNERS:
 Here is the code to slow the Arduino Uno down to a 1 MHz clock speed from its default of 16 MHz.
 
 ```
-  uint8_t priorStatus = SREG;
+  GPIOR0 = SREG;
   cli();
 
   CLKPR = 0x80;
   CLKPR = 0b0100;
 
-  SREG = priorStatus;
+  SREG = GPIOR0;
   
 ```
 
@@ -57,8 +57,13 @@ The sequence must not be interrupted. As a precaution, the ```cli();``` instruct
 
 ```cli();``` affects a bit in the controller's status register, SREG. Therefore, the code preserves the register's contents beforehand and restores them afterward.
 
-#### What does the value ```0b0100``` mean?
-In the words of the official datasheet, it "defines the division factor between the selected clock source and the internal system clock." ```0b0100``` translates into "divide by 16." 
+#### What does ```GPIOR0``` mean?
+Oh, it is a gift! The '328 hardware provides three "General Purpose I/O Registers" as byte-sized (8-bit) variables you can use any way you like. They are just free memory, but of an especially fast and nimble kind called a Special Purpose Register. The CPU can move a byte between SREG and one of these GPIORs faster and more code-efficiently compared to an address in the SRAM memory. See pages 30 and 35 in the datasheet.
+
+#### What does the value ```0b0100``` signify?
+It will be written into the low-order four bits of the CLKPR register. 
+
+In the words of the official datasheet, those four bits specify "...the division factor between the selected clock source and the internal system clock." Table 9-17 on page 47 of the datasheet associates ```0b0100``` with the Clock Division Factor of 16.
 
 #### Where is the documentation for this?
 The best source is the official datasheet published by Microchip, the manufacturer of the ATmega328P microcontroller. You can download it for free from their web site at the following URL:
@@ -120,6 +125,8 @@ Why not choose some other value? Two reasons:
 * Those having "Error" much above 2% or below −2% should be avoided as unreliable.
 * 9600 is the fastest transmission rate available with a 1 MHz System Clock.
 
+An example program is provided to demonstrate Serial output at 9600 Baud with a 1 MHz System Clock.
+
 
 ## Advantages
 Slowing the System Clock speed greatly reduces the power consumption of the ATmega328P controller on an Arduino.
@@ -163,11 +170,11 @@ void loop()
 
 void setup()
 {
-  uint8_t priorStatus = SREG;  // preserve system status
-  cli();                       // disable interrupts globally
-  CLKPR = 0x80;                // enable changing clock prescale register
-  CLKPR = 0b0100;              // divide by 16 gives 1 MHz system clock
-  SREG = priorStatus;          // restore prior system status
+  GPIOR0 = SREG;   // preserve system status
+  cli();           // disable interrupts globally
+  CLKPR = 0x80;    // enable changing clock prescale register
+  CLKPR = 0b0100;  // divide by 16 gives 1 MHz system clock
+  SREG = GPIOR0;   // restore prior system status
   
   pinMode(LED_BUILTIN, OUTPUT);
 }
@@ -191,9 +198,7 @@ Reducing clock speed is the easiest trick we have for conserving power with an A
 
 Yes, very much so, when you take the '328 off the Arduino and mount it by itself in a circuit, the way it was designed to be used. Then the comparison is of 1 mA to 9 mA. 
 
-Don't take my word for it. Consult the datasheet, available from Microchip, the '328's manufacturer, [here](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf).
-
-Study Figures 31-332 and 31-333 on pages 501 and 502. The graphs display the power usage at 5 volts for 1 MHz and 16 MHZ, respectively.
+Figures 31-332 and 31-333 on pages 501 and 502 of the datasheet display the power usage at 5 volts for 1 MHz and 16 MHZ, respectively.
 
 Put the difference into perspective in terms of battery life. Suppose a battery of 5 volts, more or less, having useful capacity of 2,000 mAH. 
 

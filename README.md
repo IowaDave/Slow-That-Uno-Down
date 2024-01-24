@@ -65,7 +65,8 @@ Refer to pages 45 through 47.
 
 Exhibit 1 marks up a table borrowed from page 36 of the datasheet. The orange line highlights the default configuration of the ATmega328P as established by the Arduino IDE for the Uno and Nano boards.
 
-![ATmega328P Clock Diagram](images/SlowDown_Prescaler.png)
+![ATmega328P Clock Diagram](images/SlowDown_Prescaler.png)<br>
+**Exhibit 1** The ATmega328P Clock schematic
 
 First, the Crystal Oscillator is selected as the Source Clock. This feeds a 16 MHz signal into the System Clock Prescaler. The CLKPR register controls what happens inside the Prescaler.
 
@@ -103,7 +104,8 @@ Where did "12" come from?
 
 Visit page 196. Exhibit 2 shows a portion of Table 20-4. "12" was chosen because it corresponds to 9600 BAUD at 1 MHz when the "U2X" bit is set to 1. We look in that column because the Arduino instruction, ```Serial.begin()```, sets the U2X bit to 1.
 
-![Excerpt of Baud rate table](images/UBRR.png)
+![Excerpt of Baud rate table](images/UBRR.png)<br>
+**Exhibit 2** Excerpt from datasheet table 20-4
 
 Why not choose some other value? Two reasons:
 

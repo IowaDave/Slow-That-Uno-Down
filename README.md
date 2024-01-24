@@ -13,19 +13,21 @@ A total of seven code instructions achieves both of those desirable results. Thi
 * locates and explains the documentation for them, 
 * concludes with discussion of advantages and disadvantages for slower system clock speeds.
 
-NOTE TO BEGINNERS: The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the microcontroller's memory.
+NOTE TO BEGINNERS: 
 
-Each register occupies one byte of memory, meaning it holds eight bits. Each bit is like a switch that turns things on and off inside the microcontroller. 
+>The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the microcontroller's memory.
 
-The bits determine everything that goes on in there.
+>Each register occupies one byte of memory, meaning it holds eight bits. Each bit is like a switch that turns things on and off inside the microcontroller. 
 
-For example, the "CLKPR" register discussed below names a memory location. The eight bits stored in CLKPR establish the system speed.
+>The bits determine everything that goes on in there.
 
-Your code can read from and write to CLKPR and most of the other registers by name, as if they were variables just like those you declare in your code.
+>For example, the "CLKPR" register discussed below names a memory location. The eight bits stored in CLKPR establish the system speed.
 
-It means your code can change how the Arduino works, just by assigning a value to a register.
+>Your code can read from and write to CLKPR and most of the other registers by name, as if they were variables just like those you declare in your code.
 
-Direct access to the registers unlocks many hidden, bonus capabilities of the Arduino. 
+>It means your code can change how the Arduino works, just by assigning a value to a register.
+
+>Direct access to the registers unlocks many hidden, bonus capabilities of the Arduino. 
 
 ## The Clock Prescaler Register, CLKPR
 

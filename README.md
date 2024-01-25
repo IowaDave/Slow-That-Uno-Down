@@ -100,7 +100,7 @@ Data transmission speed is obtained by counting cycles of the System Clock.
 
 When Arduino IDE initializes USART, it assumes a 16 MHz System Clock for calculating numbers of clock cycles to be counted. 
 
-The number is stored in the two UBRR0 registers.
+The number of cycles to count is stored in the two UBRR0 registers.
 
 After changing the System Clock speed, a different, correct number must be written into the UBRR0 registers. "12" happens to be the right number for 9600 Baud at 1 MHz. 
 

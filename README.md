@@ -111,8 +111,8 @@ Start on page 204. The number of cycles to count is a 12-bit value that can rang
 
 Representing the decimal number 12, 0x0C in hexadecimal, as a 12-bit binary number we have: ```0b0000'00001100```, where the tick separates the high-order 4 bits from the low-order 8 bits.
 
-* UBRR0H receives the upper four bits, all of them being zero because 12 is less than 256. 
-* UBRR0L stores the lower 8 bits: the value 12, in this example.
+* UBRR0H receives the high-order four bits, all of them being zero because 12 is less than 256. 
+* UBRR0L stores the low-order 8 bits: the value 12, in this example.
 
 #### Where did "12" come from?
 

@@ -234,7 +234,7 @@ The table below lists what I believe are maximum useful speeds for the three Ser
 | SPI | 250 KHz | Calculated (1) |
 
 
-(1) The datasheet states that SPI is not assured of working well in a clock-conforming-and-data-responding role if the speed exceeds 1/4th the frequency of the System Clock. The other role a device can perform in SPI is clock-originating-and-data-requesting. In that role, a 1 MHz '328 could perhaps operate SPI at 1/2 of the System Clock frequency, 500 KHz. 
+(1) The datasheet states that SPI is not assured of working well in a clock-receiving-and-responding role if the speed exceeds 1/4th the frequency of the System Clock. 
 
 Only you can decide whether those speeds can satisfy requirements for your project.
 

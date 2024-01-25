@@ -1,13 +1,9 @@
 # Slow That Uno Down!
-Use the System Clock Prescaler to reduce power consumption of an Arduino Uno or Nano by slowing the speed of its ATmega328P microcontroller.
+It needs only five code instructions to reduce power consumption of an Arduino Uno or Nano by slowing the speed of its ATmega328P microcontroller (a '328.)
 
-It takes only five code instructions.
+A further two code instructions can then re-enable Serial communications at the slower clock speed.
 
-Modify the Baud Rate Generator to enable Serial communications at the slower clock speed.
-
-That takes another two code instructions
-
-A total of seven code instructions achieves both of those desirable results. This article will:
+Seven code instructions, in total, obtain both of those desirable results. This article will:
 
 * demonstrate the instructions, 
 * locate and explain the documentation for them, and 
@@ -15,9 +11,7 @@ A total of seven code instructions achieves both of those desirable results. Thi
 
 NOTE TO BEGINNERS: 
 
->The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the memory of the ATmega328P microcontroller.
-
->By the way, this article will abbreviate ATmega328P as '328.
+>The Arduino IDE provides your code with pre-defined variable names for 87 different "registers" inside the memory of a '328.
 
 >Each register occupies one byte of memory, meaning it holds eight bits. Each bit is like a switch that turns things on and off inside the microcontroller. 
 
@@ -61,7 +55,7 @@ The sequence must not be interrupted. As a precaution, the ```cli();``` instruct
 Oh, it is a gift! The '328 hardware provides three "General Purpose I/O Registers" as byte-sized (8-bit) variables you can use any way you like. They are just free memory, but of an especially fast and nimble kind called a Special Purpose Register. The CPU can move a byte between SREG and one of these GPIORs faster and more code-efficiently compared to an address in the SRAM memory. See pages 30 and 35 in the datasheet.
 
 #### What does the value ```0b0100``` signify?
-It will be written into the low-order four bits of the CLKPR register. 
+It represents four, binary bits that will be written into the low-order four bits of the CLKPR register. 
 
 In the words of the official datasheet, those four bits specify "...the division factor between the selected clock source and the internal system clock." Table 9-17 on page 47 of the datasheet associates ```0b0100``` with the Clock Division Factor of 16.
 
@@ -108,24 +102,30 @@ When Arduino IDE initializes USART, it assumes a 16 MHz System Clock for calcula
 
 The number is stored in the two UBRR0 registers.
 
-A slower System Clock decreases the number of cycles to count for any given transmission speed. We need to store a different, correct number in UBRR0. "12" happens to be the right number for 9600 Baud at 1 MHz. 
+After changing the System Clock speed, a different, correct number must be written into the UBRR0 registers. "12" happens to be the right number for 9600 Baud at 1 MHz. 
 
 #### Where is the documentation for this?
 Section 20, "USART0" on pages 179 - 204 of the datasheet explains everything in detail. I will point out the relevant parts of it for this example.
 
-Start on page 204. The number of cycles to count is a 12-bit value that can range from 0 up to 4095, that is, from 0x000 through 0xfff. UBRR0H stores the upper four bits, which will be zero because 12 is less than 256. UBRR0L stores the value 12, in this example.
+Start on page 204. The number of cycles to count is a 12-bit value that can range from 0 up to 4095, that is, from 0x000 through 0xfff.
 
-Where did "12" come from?
+Representing the decimal number 12, 0x0C in hexadecimal, as a 12-bit binary number we have: ```0b0000'00001100```, where the tick separates the high-order 4 bits from the low-order 8 bits.
+
+* UBRR0H receives the upper four bits, all of them being zero because 12 is less than 256. 
+* UBRR0L stores the lower 8 bits: the value 12, in this example.
+
+#### Where did "12" come from?
 
 Visit page 196. Exhibit 2 shows a portion of Table 20-4. "12" was chosen because it corresponds to 9600 Baud at 1 MHz when the "U2X" bit is set to 1. We look in that column because the Arduino instruction, ```Serial.begin()```, sets the U2X bit to 1.
 
 ![Excerpt of Baud rate table](images/UBRR.png)<br>
 **Exhibit 2** Excerpt from datasheet table 20-4
 
-Why not choose some other value? Two reasons:
+#### Why not choose some other value? 
+Two reasons:
 
 * Those having "Error" much above 2% or below −2% should be avoided as unreliable.
-* 9600 is the fastest transmission rate available with a 1 MHz System Clock.
+* 9600 is the fastest reliable Baud rate available with a 1 MHz System Clock.
 
 An example program is provided to demonstrate Serial output at 9600 Baud with a 1 MHz System Clock.
 

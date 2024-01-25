@@ -17,7 +17,7 @@ NOTE TO BEGINNERS:
 
 >The bits determine everything that goes on in there.
 
->For example, the "CLKPR" register discussed below names a memory location. The eight bits stored in CLKPR establish the system speed.
+>For example, "CLKPR", discussed below, names a memory location. The eight bits stored in CLKPR establish the system speed.
 
 >Your code can read from and write to CLKPR and most of the other registers by name, as if they were variables just like those you declare in your code.
 
@@ -52,7 +52,7 @@ The sequence must not be interrupted. As a precaution, the ```cli();``` instruct
 ```cli();``` affects a bit in the controller's status register, SREG. Therefore, the code preserves the register's contents beforehand and restores them afterward.
 
 #### What does ```GPIOR0``` mean?
-Oh, it is a gift! The '328 hardware provides three "General Purpose I/O Registers" as byte-sized (8-bit) variables you can use any way you like. They are just free memory, but of an especially fast and nimble kind called a Special Purpose Register. The CPU can move a byte between SREG and one of these GPIORs faster and more code-efficiently compared to an address in the SRAM memory. See pages 30 and 35 in the datasheet.
+Oh, it is a gift! The '328 hardware provides three "General Purpose I/O Registers" as byte-sized (8-bit) variables you can use any way you like. They are just free memory, physically distinct from SRAM, an especially fast and nimble kind of memory called a Special Purpose Register. The CPU can move a byte between SREG and one of these GPIORs faster and more code-efficiently compared to an address in the SRAM memory. See pages 30 and 35 in the datasheet.
 
 #### What does the value ```0b0100``` signify?
 It represents four, binary bits that will be written into the low-order four bits of the CLKPR register. 
